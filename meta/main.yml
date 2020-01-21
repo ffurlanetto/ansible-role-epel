@@ -1,0 +1,23 @@
+---
+
+galaxy_info:
+  author: Florian Furlanetto
+  description: This role install setup EPEL on target system
+  company: ADNEOM
+
+  license: See license.md
+
+  min_ansible_version: 2.x
+
+  platforms:
+  - name: CentOS / RHEL
+    versions:
+    - 8
+    - 7
+
+  galaxy_tags:
+    - adneom
+    - ffurlanetto
+    - epel
+
+dependencies: []

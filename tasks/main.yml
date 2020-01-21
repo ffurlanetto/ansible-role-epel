@@ -1,0 +1,31 @@
+---
+# tasks file for ansible-role-epel
+
+- name: Validating if supported platform
+  fail: 
+    msg: EPEL is only supported on RedHat compatible OS
+  when: ansible_os_family != 'RedHat'
+
+- name: Enable EPEL repository on RHEL compatible OS
+  dnf:
+    name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm'
+    state: present
+    update_cache: yes
+
+- name: Enable Power Tools
+  shell: dnf config-manager --set-enabled PowerTools
+  args:
+    warn: no 
+  when: ansible_distribution == 'CentOS'
+
+- name: Enable Power Tools
+  shell: dnf config-manager --set-enabled PowerTools
+  args:
+    warn: no 
+  when: ansible_distribution == 'CentOS'
+
+- name: Enable CodeReady for RHEL
+  shell: ARCH=$( /bin/arch ) && subscription-manager repos --enable "codeready-builder-for-rhel-{{ ansible_distribution_major_version }}-${ARCH}-rpms"
+  args:
+    warn: no 
+  when: ansible_distribution == 'RedHat'
